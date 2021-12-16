@@ -1,0 +1,11 @@
+{
+  "domain": "ide",
+  "name": "IDE Energy Monitor",
+  "documentation": "https://github.com/alvaro-duarte/ide/",
+  "issue_tracker": "https://github.com/alvaro-duarte/ide/",
+  "dependencies": [],
+  "codeowners": ["@alvaro-duarte"],
+  "requirements": ["requests"],
+  "version": "0.0.1",
+  "iot_class": "cloud_polling"
+}
