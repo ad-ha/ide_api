@@ -1,8 +1,8 @@
 {
   "domain": "ide",
   "name": "IDE Energy Monitor",
-  "documentation": "https://github.com/alvaro-duarte/ide/",
-  "issue_tracker": "https://github.com/alvaro-duarte/ide/",
+  "documentation": "https://github.com/ad-ha/ide_api/",
+  "issue_tracker": "https://github.com/ad-ha/ide_api/",
   "dependencies": [],
   "codeowners": ["@ad-ha"],
   "requirements": ["requests"],
