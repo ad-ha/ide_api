@@ -4,7 +4,7 @@
   "documentation": "https://github.com/alvaro-duarte/ide/",
   "issue_tracker": "https://github.com/alvaro-duarte/ide/",
   "dependencies": [],
-  "codeowners": ["@alvaro-duarte"],
+  "codeowners": ["@ad-ha"],
   "requirements": ["requests"],
   "version": "0.0.1",
   "iot_class": "cloud_polling"
