@@ -24,8 +24,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 )
 
 
-async def async_setup(hass: HomeAssistantType, hass_config: dict):
-    config = hass_config[DOMAIN]
+async def async_setup(hass: HomeAssistantType, config):
     has_credentials = CONF_USERNAME in config and CONF_PASSWORD in config
     if not has_credentials:
         _LOGGER.debug("No credentials provided")

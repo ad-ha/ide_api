@@ -1,11 +1,11 @@
 {
   "domain": "ide",
-  "name": "IDE Energy Monitor",
+  "name": "iDE Energy Monitor",
   "documentation": "https://github.com/ad-ha/ide_api/",
-  "issue_tracker": "https://github.com/ad-ha/ide_api/",
+  "issue_tracker": "https://github.com/ad-ha/ide_api/issues",
   "dependencies": [],
   "codeowners": ["@ad-ha"],
   "requirements": ["requests"],
-  "version": "0.0.1",
+  "version": "0.0.1b",
   "iot_class": "cloud_polling"
 }

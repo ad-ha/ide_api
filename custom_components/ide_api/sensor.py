@@ -1,3 +1,4 @@
+from __future__ import annotations
 from datetime import timedelta
 import logging
 
@@ -6,11 +7,13 @@ from requests.exceptions import ConnectTimeout, HTTPError
 import voluptuous as vol
 
 from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntityDescription,
+    SensorStateClass,
     PLATFORM_SCHEMA,
     STATE_CLASS_MEASUREMENT,
     STATE_CLASS_TOTAL_INCREASING,
     SensorEntity,
-    SensorEntityDescription,
 )
 from homeassistant.const import (
     CONF_HOST,
@@ -22,13 +25,19 @@ from homeassistant.const import (
     DEVICE_CLASS_ENERGY,
 )
 from homeassistant.exceptions import HomeAssistantError
-import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.typing import HomeAssistantType
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.typing import (
+    HomeAssistantType,
+    ConfigType,
+    DiscoveryInfoType,
+)
+import homeassistant.helpers.config_validation as cv
 
 from .ide_api import IdeAPI
 
-__VERSION__ = "0.0.1"
+__VERSION__ = "0.0.1b"
 
 DOMAIN = "ide"
 
@@ -52,43 +61,70 @@ ENERGY_SENSORS = [
     ),
     SensorEntityDescription(
         key="energy",
+        device_class=SensorDeviceClass.ENERGY,
+        state_class=SensorStateClass.TOTAL_INCREASING,
         native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
-        device_class=DEVICE_CLASS_ENERGY,
-        state_class=STATE_CLASS_TOTAL_INCREASING,
-        name="Total Consumption",
+        name="Meter Reading",
     ),
 ]
 
 
-async def async_setup(hass: HomeAssistantType, hass_config: dict):
-    haconfig = hass_config[DOMAIN]
-    has_credentials = CONF_USERNAME in haconfig and CONF_PASSWORD in haconfig
-    if not has_credentials:
-        _LOGGER.debug("No credentials provided")
-    return True
+# async def async_setup(hass: HomeAssistantType, hass_config: dict):
+#    haconfig = hass_config[DOMAIN]
+#    has_credentials = CONF_USERNAME in haconfig and CONF_PASSWORD in haconfig
+#    if not has_credentials:
+#        _LOGGER.debug("No credentials provided")
+#    return True
 
 
 SCAN_INTERVAL = timedelta(minutes=120)
 
 
-def setup_platform(hass, config, add_entities, discovery_info=None):
+def setup_platform(
+    hass: HomeAssistant,
+    config: ConfigType,
+    add_entities: AddEntitiesCallback,
+    discovery_info: DiscoveryInfoType | None = None,
+) -> None:
 
     """Set up the sensor platform."""
     # username = config[CONF_USERNAME]
     # password = config[CONF_PASSWORD]
 
-    # client = IDESensor(username, password)
+    # ideClient = IDESensor(username, password)
 
-    add_entities([IDESensor(config)])
+    add_entities(
+        [
+            IDESensor(
+                config,
+                "Meter Reading",
+                "meterReading",
+                ENERGY_KILO_WATT_HOUR,
+                DEVICE_CLASS_ENERGY,
+                STATE_CLASS_TOTAL_INCREASING,
+            )
+        ],
+        True,
+    )
 
 
-class IDESensor(Entity):
+class IDESensor(SensorEntity):
     """Representation of a Sensor."""
 
-    def __init__(self, config):
+    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+    _attr_device_class = SensorDeviceClass.ENERGY
+
+    def __init__(self, config, name, variable, unit, deviceclass, stateclass):
+
+        _LOGGER.debug("Initalizing Entity {}".format(name))
 
         """Initialize the sensor."""
         self._state = None
+        self._name = name
+        self._variable = variable
+        self._unit = unit
+        self._deviceclass = deviceclass
+        self._stateclass = stateclass
         self._attributes = {}
         self.username = config[CONF_USERNAME]
         self.password = config[CONF_PASSWORD]
@@ -97,7 +133,7 @@ class IDESensor(Entity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return "IDE Power Consumption"
+        return "iDE Meter Reading"
 
     @property
     def state(self):
@@ -105,9 +141,17 @@ class IDESensor(Entity):
         return self._state
 
     @property
+    def device_class(self):
+        return self._deviceclass
+
+    @property
+    def state_class(self):
+        return self._stateclass
+
+    @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        return ENERGY_KILO_WATT_HOUR
+        return self._unit
 
     @property
     def device_state_attributes(self):
@@ -119,7 +163,6 @@ class IDESensor(Entity):
         ides = IdeAPI(self.username, self.password)
         ides.login()
         meter = ides.watthourmeter()
-        self._state = meter
 
         _LOGGER.debug("Meter Data {}".format(meter))
         #        r = ides.get_cups()
@@ -135,11 +178,11 @@ class IDESensor(Entity):
         #        _LOGGER.debug(f"Fetching data for CUPS={self._cups} with Id={cups_id}")
 
         # attributes = {}
-        # attributes["Estado ICP"] = meter["data"]["estadoICP"]
-        # attributes["Current Consumption"] = str(meter["json_response"]["valMagnitud"]) + " kWh"
-        # attributes["Porcentaje actual"] = meter["data"]["percent"]
+        # attributes["Meter State"] = meter["json_response"]["icp"]
+        # attributes["Current Consumptionl"] = meter["json_response"]["consumption"]
+        # attributes["Meter Reading"] = meter["json_response"]["meter"]
         # attributes["Potencia Contratada"] = (
         #    str(meter["data"]["potenciaContratada"]) + " kW"
         # )
-
+        self._state = meter
         # self._attributes = attributes
