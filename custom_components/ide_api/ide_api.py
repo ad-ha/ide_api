@@ -1,4 +1,4 @@
-__VERSION__ = "0.0.1b"
+__VERSION__ = "0.0.1"
 
 from datetime import datetime
 import logging
