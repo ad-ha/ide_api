@@ -37,7 +37,7 @@ import homeassistant.helpers.config_validation as cv
 
 from .ide_api import IdeAPI
 
-__VERSION__ = "0.0.1b"
+__VERSION__ = "0.0.2"
 
 DOMAIN = "ide"
 
