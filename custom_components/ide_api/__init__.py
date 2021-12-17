@@ -10,7 +10,7 @@ from homeassistant.exceptions import HomeAssistantError
 from requests.exceptions import ConnectTimeout, HTTPError
 from aiohttp import ClientConnectionError
 
-__VERSION__ = "0.0.1"
+__VERSION__ = "0.0.2"
 
 _LOGGER = logging.getLogger(__name__)
 
