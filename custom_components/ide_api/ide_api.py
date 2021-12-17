@@ -26,9 +26,6 @@ class UrlError(IdeAPIError):
         self.request = request
         super().__init__(message)
 
-    # pass
-
-
 def serialize_date(dt):
     """
     Serialize a date/time value into an ISO8601 text representation
