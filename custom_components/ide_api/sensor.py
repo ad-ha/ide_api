@@ -68,17 +68,7 @@ ENERGY_SENSORS = [
     ),
 ]
 
-
-# async def async_setup(hass: HomeAssistantType, hass_config: dict):
-#    haconfig = hass_config[DOMAIN]
-#    has_credentials = CONF_USERNAME in haconfig and CONF_PASSWORD in haconfig
-#    if not has_credentials:
-#        _LOGGER.debug("No credentials provided")
-#    return True
-
-
 SCAN_INTERVAL = timedelta(minutes=120)
-
 
 def setup_platform(
     hass: HomeAssistant,
@@ -88,11 +78,6 @@ def setup_platform(
 ) -> None:
 
     """Set up the sensor platform."""
-    # username = config[CONF_USERNAME]
-    # password = config[CONF_PASSWORD]
-
-    # ideClient = IDESensor(username, password)
-
     add_entities(
         [
             IDESensor(
@@ -128,7 +113,6 @@ class IDESensor(SensorEntity):
         self._attributes = {}
         self.username = config[CONF_USERNAME]
         self.password = config[CONF_PASSWORD]
-        # self.meter = {}
 
     @property
     def name(self):
@@ -165,24 +149,5 @@ class IDESensor(SensorEntity):
         meter = ides.watthourmeter()
 
         _LOGGER.debug("Meter Data {}".format(meter))
-        #        r = ides.get_cups()
-        #
-        #        try:
-        #            for c in r["data"]["lstCups"]:
-        #                if c["Name"] == self._cups:
-        #                    cups_id = c["Id"]
-        #        except AttributeError:
-        #            cups_id = r["data"]["lstCups"][0]["Id"]
-        #            self._cups = r["data"]["lstCups"][0]["Name"]
 
-        #        _LOGGER.debug(f"Fetching data for CUPS={self._cups} with Id={cups_id}")
-
-        # attributes = {}
-        # attributes["Meter State"] = meter["json_response"]["icp"]
-        # attributes["Current Consumptionl"] = meter["json_response"]["consumption"]
-        # attributes["Meter Reading"] = meter["json_response"]["meter"]
-        # attributes["Potencia Contratada"] = (
-        #    str(meter["data"]["potenciaContratada"]) + " kW"
-        # )
         self._state = meter
-        # self._attributes = attributes
