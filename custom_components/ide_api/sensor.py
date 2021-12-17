@@ -68,7 +68,7 @@ ENERGY_SENSORS = [
     ),
 ]
 
-SCAN_INTERVAL = timedelta(minutes=120)
+SCAN_INTERVAL = timedelta(minutes=60)
 
 def setup_platform(
     hass: HomeAssistant,
