@@ -1,6 +1,6 @@
 {
   "domain": "ide",
-  "name": "iDE Energy Monitor",
+  "name": "i-DE Energy Monitor",
   "documentation": "https://github.com/ad-ha/ide_api/",
   "issue_tracker": "https://github.com/ad-ha/ide_api/issues",
   "dependencies": [],
