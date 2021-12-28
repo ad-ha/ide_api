@@ -9,7 +9,7 @@ from requests import Session
 
 UTC = tzutc()
 
-logging.getLogger().setLevel(logging.DEBUG)
+# logging.getLogger().setLevel(logging.DEBUG)
 
 _LOGGER = logging.getLogger(__name__)
 
