@@ -118,7 +118,7 @@ class IdeAPI:
             )
         )
 
-        _LOGGER.debug("Login Data {}".format(login_data))
+        # _LOGGER.debug("Login Data {}".format(login_data))
 
         response = self.__session.request(
             "POST", self.__login_url, data=login_data, headers=self.__headers
