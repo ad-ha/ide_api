@@ -1,10 +1,22 @@
-# ie_api
+# ide_api
 
-i-DE Home Assistant Custom Integration
+Iberdrola Distribución (i-DE) Home Assistant Custom Integration
 
-This sensor will update every 2 hours.
+## Description
 
-## How to install
+Adds integration with i-DE in Home Assistant
+
+This sensor will update every hour.
+
+Important: Keep in mind that each reading is done directly to your home meter, and it takes sometime to return a result. As per i-DE it may take up to 2 minutes to get a reading.
+
+## Getting Started
+
+### Dependencies
+
+You should have a i-DE username and access to the Clients' website. You may register here: [Área Clientes | I-DE - Grupo Iberdrola](https://www.i-de.es/consumidores/web/guest/login).
+
+Make sure to complement all information to have an "Advanced User" profile.
 
 ### Manual method
 
@@ -32,9 +44,17 @@ sensor:
     password: <password>
 ```
 
-use the _\<username\>_ and _\<password\>_ you use on the i-de webpage. (It is recommended to use the [HA secrets](https://www.home-assistant.io/docs/configuration/secrets/) files for security pourposes)
+Use the _\<username\>_ and _\<password\>_ you use on the i-DE webpage. (It is recommended to use the [HA secrets](https://www.home-assistant.io/docs/configuration/secrets/) files for security pourposes)
 
 - Restart HA
+
+## Usage
+
+### Sensors
+
+Utility Meter sensors inside `configuration.yaml`
+
+```yaml
 
 ## How to configure hourly, daily and monthly costs sensors
 
@@ -69,6 +89,8 @@ utility_meter:
     cycle: monthly
 ```
 
+In the `sensor.yaml` file or under sensor in `configuration.yaml`
+
 - With the cost calculations template (inside your `configuration.yaml` file) as:
 
 ```yml
@@ -86,17 +108,53 @@ utility_meter:
         {{ (( states('sensor.home_energy_hourly') | float * (peaje + states('sensor.pvpc') | float) ) * states('input_number.impuesto_energia') | float * states('input_number.iva_energia') | float) | round(3) }}
 ```
 
-- Create some helpers to configure the costs:
+To complement the cost calculation, I consider the costs of Toll, Energy Tax and VAT. For that create some "helpers" with input_number.
 
-```
-input_number.impuesto_energia (%) >> 1.051127
-input_number.iva_energia (%) >> 1.10
-input_number.peaje_energia_p1 (esto lo que tengáis de vuestra comercializadora en la factura)
-input_number.peaje_energia_p2 (esto lo que tengáis de vuestra comercializadora en la factura)
-input_number.peaje_energia_p3 (esto lo que tengáis de vuestra comercializadora en la factura)
-input_number.peaje_energia_potencia_p1 (esto lo que tengáis de vuestra comercializadora en la factura)
-input_number.peaje_energia_potencia_p2 (esto lo que tengáis de vuestra comercializadora en la factura)
-```
+* input_number.impuesto_energia (%) >> 1.051127
+* input_number.iva_energia (%) >> 1.10
+* input_number.peaje_energia_p1 (this what you have in the invoice)
+* input_number.peaje_energia_p2 (this what you have in the invoice)
+* input_number.peaje_energia_p3 (this what you have in the invoice)
+* input_number.peaje_energia_potencia_p1 (this what you have in the invoice)
+* input_number.peaje_energia_potencia_p2 (this what you have in the invoice)
 
 ![Toll p1](static/images/helpers_toll_p1.png)
 ![Power p1](static/images/helpers_power_p1.png)
+
+Once created, you can define the amounts in the box that appears in the details of each input_number or in Developer Tools / States
+
+## Authors
+
+- [Alvaro Duarte](https://github.com/ad-ha)  
+
+### Contributions
+
+- [alessbarb](https://github.com/alessbarb)
+- [NeoMorfeo](https://github.com/NeoMorfeo)
+
+## Version History
+
+```
+0.0.3a - Debug log Update and Security Fix
+- Fix debug log target file, causing performance issues on HA
+- Fix security issue, where login details to IDE where stored as plain text on the log file
+- Update versioning across all files
+- Update HACS release
+```
+```
+0.0.2
+- Removed b from versioning
+```
+```
+0.0.1b - Initial Beta release
+- Beta Release of iDE Energy Monitor Custom Integration for Home Assistant
+```
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 License - see the LICENSE file for details
+
+## Disclaimer
+
+THIS PROJECT IS NOT IN ANY WAY ASSOCIATED WITH OR RELATED TO THE IBERDROLA GROUP COMPANIES OR ANY OTHER. The information here and online is for educational and resource purposes only and therefore the developers do not endorse or condone any inappropriate use of it, and take no legal responsibility for the functionality or security of your alarms and devices.
+
