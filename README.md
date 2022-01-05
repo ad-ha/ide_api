@@ -6,33 +6,61 @@ Iberdrola Distribución (i-DE) Home Assistant Custom Integration
 
 Adds integration with i-DE in Home Assistant
 
+This sensor will update every hour.
+
+Important: Keep in mind that each reading is done directly to your home meter, and it takes sometime to return a result. As per i-DE it may take up to 2 minutes to get a reading.
+
 ## Getting Started
 
 ### Dependencies
 
-You should be registered in i-DE, if not you can register here: [Área Clientes | I-DE - Grupo Iberdrola](https://www.i-de.es/consumidores/web/guest/login).
+You should have a i-DE username and access to the Clients' website. You may register here: [Área Clientes | I-DE - Grupo Iberdrola](https://www.i-de.es/consumidores/web/guest/login).
 
-### Installing
+Make sure to complement all information to have an "Advanced User" profile.
 
-- Copy the contents of `custom_components/ide_api/` to `<your config dir>/custom_components/ide_api/`.
-- Restart Home Assistant
-- Add the following to your `configuration.yaml`:
+### Manual method
 
-```yaml
+- Download/clone this repo
+- Copy the [custom_components/ide_api](custom_components/ide_api) folder into your custom_components folder into your HA installation
+- Restart HA
+
+### [HACS](https://hacs.xyz/) method
+
+- Copy this repo URL
+- In the HACS section, add this repo as a custom one:
+  ![Custom repository](static/images/add_hacs_custom_repo.png)
+  - On the "Repository" field put the URL copied before
+  - On the "Catgory" select "Integration"
+- Restart HA
+
+## How to configure
+
+- Edit your `configuration.yaml` (or your `sensor.yaml` without _`sensor:`_) file to add this sensor:
+
+```yml
 sensor:
   - platform: ide
-    username: YOUR_USERNAME
-    password: YOUR_PASSWORD
+    username: <username>
+    password: <password>
 ```
 
-- Restart Home Assistant again.
+Use the _\<username\>_ and _\<password\>_ you use on the i-DE webpage. (It is recommended to use the [HA secrets](https://www.home-assistant.io/docs/configuration/secrets/) files for security pourposes)
+
+- Restart HA
 
 ### Usage
 
 #### Sensors
 
 Utility Meter sensors inside configuration.yaml
+
 ```yaml
+
+## How to configure hourly, daily and monthly costs sensors
+
+- Edit your `configuration.yaml` file to add this sensor:
+
+```yml
 # UTILITY METER #
 utility_meter:
   # HOME ENERGY #
@@ -63,7 +91,9 @@ utility_meter:
 
 In the sensor.yaml file or under sensor in configuration.yaml
 
-```yaml
+- With the cost calculations template (inside your `configuration.yaml` file) as:
+
+```yml
 # ENERGY COST #
 - platform: template
   sensors:
@@ -87,6 +117,9 @@ To complement the cost calculation, I consider the costs of Toll, Energy Tax and
 * input_number.peaje_energia_p3 (this what you have in the invoice)
 * input_number.peaje_energia_potencia_p1 (this what you have in the invoice)
 * input_number.peaje_energia_potencia_p2 (this what you have in the invoice)
+
+![Toll p1](static/images/helpers_toll_p1.png)
+![Power p1](static/images/helpers_power_p1.png)
 
 Once created, you can define the amounts in the box that appears in the details of each input_number or in Developer Tools / States
 
@@ -119,3 +152,4 @@ This project is licensed under the GNU General Public License v3.0 License - see
 ## Disclaimer
 
 THIS PROJECT IS NOT IN ANY WAY ASSOCIATED WITH OR RELATED TO THE IBERDROLA GROUP COMPANIES OR ANY OTHER. The information here and online is for educational and resource purposes only and therefore the developers do not endorse or condone any inappropriate use of it, and take no legal responsibility for the functionality or security of your alarms and devices.
+
