@@ -50,6 +50,14 @@ Use the _\<username\>_ and _\<password\>_ you use on the i-DE webpage. (It is re
 
 - Restart HA
 
+## Usage
+
+### Sensors
+
+Utility Meter sensors inside `configuration.yaml`
+
+```yaml
+
 ## How to configure hourly, daily and monthly costs sensors
 
 - Edit your `configuration.yaml` file to add this sensor:
