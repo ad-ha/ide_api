@@ -14,7 +14,7 @@ Important: Keep in mind that each reading is done directly to your home meter, a
 
 ### Dependencies
 
-You should have a i-DE username and access to the Clients' website. You may register here: [Área Clientes | I-DE - Grupo Iberdrola](https://www.i-de.es/consumidores/web/guest/login).
+You should have an i-DE username and access to the Clients' website. You may register here: [Área Clientes | I-DE - Grupo Iberdrola](https://www.i-de.es/consumidores/web/guest/login).
 
 Make sure to complement all information to have an "Advanced User" profile.
 
@@ -24,11 +24,13 @@ Make sure to complement all information to have an "Advanced User" profile.
 - Copy the [custom_components/ide_api](custom_components/ide_api) folder into your custom_components folder into your HA installation
 - Restart HA
 
-### [HACS](https://hacs.xyz/) method
+### [HACS](https://hacs.xyz/) method (recommended)
 
 - Copy this repo URL
 - In the HACS section, add this repo as a custom one:
+
   ![Custom repository](static/images/add_hacs_custom_repo.png)
+  
   - On the "Repository" field put the URL copied before
   - On the "Catgory" select "Integration"
 - Restart HA
@@ -37,7 +39,7 @@ Make sure to complement all information to have an "Advanced User" profile.
 
 - Edit your `configuration.yaml` (or your `sensor.yaml` without _`sensor:`_) file to add this sensor:
 
-```yml
+```yaml
 sensor:
   - platform: ide
     username: <username>
@@ -93,7 +95,7 @@ In the `sensor.yaml` file or under sensor in `configuration.yaml`
 
 - With the cost calculations template (inside your `configuration.yaml` file) as:
 
-```yml
+```yaml
 # ENERGY COST #
 - platform: template
   sensors:
@@ -135,6 +137,10 @@ Once created, you can define the amounts in the box that appears in the details 
 ## Version History
 
 ```
+0.0.3
+- Update version number to 0.0.3
+```
+```
 0.0.3a - Debug log Update and Security Fix
 - Fix debug log target file, causing performance issues on HA
 - Fix security issue, where login details to IDE where stored as plain text on the log file
@@ -156,5 +162,5 @@ This project is licensed under the GNU General Public License v3.0 License - see
 
 ## Disclaimer
 
-THIS PROJECT IS NOT IN ANY WAY ASSOCIATED WITH OR RELATED TO THE IBERDROLA GROUP COMPANIES OR ANY OTHER. The information here and online is for educational and resource purposes only and therefore the developers do not endorse or condone any inappropriate use of it, and take no legal responsibility for the functionality or security of your alarms and devices.
+THIS PROJECT IS NOT IN ANY WAY ASSOCIATED WITH OR RELATED TO THE IBERDROLA GROUP COMPANIES OR ANY OTHER. The information here and online is for educational and resource purposes only and therefore the developers do not endorse or condone any inappropriate use of it, and take no legal responsibility for the functionality or security of your devices.
 
