@@ -1,3 +1,8 @@
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+
+![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/ad-ha/ide_api?include_prereleases)
+![GitHub release (by tag)](https://img.shields.io/github/downloads/ad-ha/ide_api/v0.1.0/total)
+
 # i-DE (Iberdrola Distribución) API for Home Assistant
 
 i-DE (Iberdrola Distribución) Home Assistant Custom Integration, providing realtime energy meter readings
