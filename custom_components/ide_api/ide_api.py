@@ -113,7 +113,7 @@ class IdeAPI:
         """Creates session with your credentials"""
         self.__session = Session()
         login_data = (
-            '["{}","{}",null,"Linux -","PC","Chrome 77.0.3865.90","0","","s"]'.format(
+            '["{}","{}",null,"Home Assistant","PC","Chrome 97.0.4692.71","0","","s"]'.format(
                 self.username, self.password
             )
         )
