@@ -134,6 +134,11 @@ Once created, you can define the amounts in the box that appears in the details 
 ## Version History
 
 ```
+0.1.1
+- Rename sensor to avoid breaking long-term statistics.
+- Rename class to avoid name conflicts with other components.
+```
+```
 0.1.0
 - Changes to README.md
 - Rename sensor call and class
