@@ -117,7 +117,7 @@ class IDESensor(SensorEntity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return "iDE Meter Reading"
+        return "i-DE Energy Meter Reading"
 
     @property
     def state(self):
