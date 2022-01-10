@@ -146,7 +146,7 @@ class IDESensor(SensorEntity):
         """Fetch new state data for the sensor."""
         ides = IdeAPI(self.username, self.password)
         ides.login()
-        meter = ides.watthourmeter()
+        meter = ides.meterreading()
 
         _LOGGER.debug("Meter Data {}".format(meter))
 
