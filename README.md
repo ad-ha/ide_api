@@ -1,6 +1,6 @@
-# ide_api
+# i-DE (Iberdrola Distribución) API for Home Assistant
 
-Iberdrola Distribución (i-DE) Home Assistant Custom Integration
+i-DE (Iberdrola Distribución) Home Assistant Custom Integration, providing realtime energy meter readings
 
 ## Description
 
@@ -18,13 +18,15 @@ You should have an i-DE username and access to the Clients' website. You may reg
 
 Make sure to complement all information to have an "Advanced User" profile.
 
-### Manual method
+### Installation
+
+#### - Manual method
 
 - Download/clone this repo
 - Copy the [custom_components/ide_api](custom_components/ide_api) folder into your custom_components folder into your HA installation
 - Restart HA
 
-### [HACS](https://hacs.xyz/) method (recommended)
+#### - [HACS](https://hacs.xyz/) method (recommended)
 
 - Copy this repo URL
 - In the HACS section, add this repo as a custom one:
@@ -56,13 +58,12 @@ Use the _\<username\>_ and _\<password\>_ you use on the i-DE webpage. (It is re
 
 Utility Meter sensors inside `configuration.yaml`
 
-```yaml
 
-## How to configure hourly, daily and monthly costs sensors
+#### How to configure hourly, daily and monthly costs sensors
 
 - Edit your `configuration.yaml` file to add this sensor:
 
-```yml
+```yaml
 # UTILITY METER #
 utility_meter:
   # HOME ENERGY #
@@ -125,17 +126,14 @@ To complement the cost calculation, I consider the costs of Toll, Energy Tax and
 
 Once created, you can define the amounts in the box that appears in the details of each input_number or in Developer Tools / States
 
-## Authors
-
-- [Alvaro Duarte](https://github.com/ad-ha)  
-
-### Contributions
-
-- [alessbarb](https://github.com/alessbarb)
-- [NeoMorfeo](https://github.com/NeoMorfeo)
-
 ## Version History
 
+```
+0.1.0
+- Changes to README.md
+- Rename sensor call and class
+- Update to production-ready for deployment on HACS, via Custom Repositories, with version control
+```
 ```
 0.0.3
 - Update version number to 0.0.3
@@ -155,6 +153,18 @@ Once created, you can define the amounts in the box that appears in the details 
 0.0.1b - Initial Beta release
 - Beta Release of iDE Energy Monitor Custom Integration for Home Assistant
 ```
+
+## Authors
+
+- [Alvaro Duarte](https://github.com/ad-ha)  
+
+### Contributions
+
+- [alessbarb](https://github.com/alessbarb)
+- [NeoMorfeo](https://github.com/NeoMorfeo)
+
+## Credits
+- [hectorespert](https://github.com/hectorespert/python-oligo) - The base API used for the sensor is the python-oligo package developed by him.
 
 ## License
 
