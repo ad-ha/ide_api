@@ -37,7 +37,7 @@ import homeassistant.helpers.config_validation as cv
 
 from .ide_api import IdeAPI
 
-__VERSION__ = "0.1.0"
+__VERSION__ = "0.1.1"
 
 DOMAIN = "ide"
 
@@ -117,7 +117,7 @@ class IDESensor(SensorEntity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return "i-DE Energy Meter Reading"
+        return "iDE Meter Reading"
 
     @property
     def state(self):
