@@ -164,7 +164,7 @@ class IdeAPI:
             "raw_response": json_response,
         }
 
-    def watthourmeter(self):
+    def meterreading(self):
         """Returns your current power consumption."""
         return self.measurement()["meter"]
 
