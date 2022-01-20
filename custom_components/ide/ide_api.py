@@ -13,6 +13,7 @@ UTC = tzutc()
 
 _LOGGER = logging.getLogger(__name__)
 
+DOMAIN = "ide"
 
 class IdeAPIError(Exception):
     def __init__(self, message):

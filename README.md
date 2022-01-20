@@ -34,7 +34,7 @@ Make sure to complement all information to have an "Advanced User" profile.
 #### - Manual method
 
 - Download/clone this repo
-- Copy the [custom_components/ide_api](custom_components/ide_api) folder into your custom_components folder into your HA installation
+- Copy the [custom_components/ide](custom_components/ide) folder into your custom_components folder into your HA installation
 - Restart HA
 
 #### - [HACS](https://hacs.xyz/) method (recommended)
