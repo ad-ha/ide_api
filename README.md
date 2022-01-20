@@ -16,7 +16,7 @@ Important: Keep in mind that each reading is done directly to your home meter, a
 
 ### Known Issues
 
-- By the moment, this integration is limited to one contract. IF you have more then one contract in i-DE, the integration will obtain the data for the main contract.
+- By the moment, this integration is limited to one contract. Should you have more then one contract with i-DE, the integration will obtain the data for the main contract only.
 - On HA start/booting, if the sensor fails to obtain a response from the meter, the sensor will fail to be setup and further updates will not be performed. In case this happens, it is recommended to restart HA until everything works well.
 - The reading is done directly to your meter. Due to connectivity issues or i-DE server issues, you may not always obtain readings as expected. Keep in mind that sometimes a delay on the reading may occurr.
 - The reading only returns integer values. If from the last reading your meter indicates a variance minor then 1 kWh, the integration will not reflect any variance and that will only be recorded once the variance from the previous reading is greater then 1. 
