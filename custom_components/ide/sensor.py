@@ -2,8 +2,6 @@ from __future__ import annotations
 from datetime import timedelta
 import logging
 
-import requests
-from requests.exceptions import ConnectTimeout, HTTPError
 import voluptuous as vol
 
 from homeassistant.components.sensor import (
@@ -16,7 +14,6 @@ from homeassistant.components.sensor import (
     SensorEntity,
 )
 from homeassistant.const import (
-    CONF_HOST,
     CONF_PASSWORD,
     CONF_USERNAME,
     POWER_KILO_WATT,
@@ -24,20 +21,17 @@ from homeassistant.const import (
     ENERGY_KILO_WATT_HOUR,
     DEVICE_CLASS_ENERGY,
 )
-from homeassistant.exceptions import HomeAssistantError
-from homeassistant.helpers.entity import Entity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import (
-    HomeAssistantType,
     ConfigType,
     DiscoveryInfoType,
 )
 import homeassistant.helpers.config_validation as cv
 
-from .ide_api import IdeAPI
-
 __VERSION__ = "0.1.1"
+
+from oligo.asyncio import AsyncIber
 
 DOMAIN = "ide"
 
@@ -70,15 +64,16 @@ ENERGY_SENSORS = [
 
 SCAN_INTERVAL = timedelta(minutes=60)
 
-def setup_platform(
+
+async def async_setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
-    add_entities: AddEntitiesCallback,
+    async_add_entities: AddEntitiesCallback,
     discovery_info: DiscoveryInfoType | None = None,
 ) -> None:
 
     """Set up the sensor platform."""
-    add_entities(
+    async_add_entities(
         [
             IDESensor(
                 config,
@@ -138,16 +133,14 @@ class IDESensor(SensorEntity):
         return self._unit
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Return the state attributes."""
         return self._attributes
 
-    def update(self):
+    async def async_update(self):
         """Fetch new state data for the sensor."""
-        ides = IdeAPI(self.username, self.password)
-        ides.login()
-        meter = ides.idemeterreading()
-
-        _LOGGER.debug("Meter Data {}".format(meter))
-
-        self._state = meter
+        connection = AsyncIber()
+        await connection.login(self.username, self.password)
+        self._state = await connection.current_kilowatt_hour_read()
+        _LOGGER.debug("Meter Data {}".format(self._state))
+        await connection.close()
