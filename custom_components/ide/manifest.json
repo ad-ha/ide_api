@@ -5,7 +5,7 @@
   "issue_tracker": "https://github.com/ad-ha/ide_api/issues",
   "dependencies": [],
   "codeowners": ["@ad-ha"],
-  "requirements": ["requests"],
+  "requirements": ["oligo[asyncio]==2.1.0"],
   "version": "0.1.0",
   "iot_class": "cloud_polling"
 }

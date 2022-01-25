@@ -1,14 +1,9 @@
-from .ide_api import IdeAPI
-import asyncio
 import logging
 import voluptuous as vol
-from homeassistant.helpers import config_validation as cv, discovery
+from homeassistant.helpers import config_validation as cv
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import CONF_USERNAME, CONF_PASSWORD
 from homeassistant.helpers.typing import HomeAssistantType
-from homeassistant.exceptions import HomeAssistantError
-from requests.exceptions import ConnectTimeout, HTTPError
-from aiohttp import ClientConnectionError
 
 __VERSION__ = "0.1.0"
 
