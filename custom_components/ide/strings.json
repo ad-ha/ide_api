@@ -1,0 +1,18 @@
+{
+  "title": "IDE Integration",
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+    },
+    "abort": {
+      "already_configured": "Device is already configured"
+    }
+  }
+}

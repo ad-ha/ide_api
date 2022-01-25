@@ -33,8 +33,6 @@ __VERSION__ = "0.1.1"
 
 from oligo.asyncio import AsyncIber
 
-DOMAIN = "ide"
-
 # Validation of the user's configuration
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
