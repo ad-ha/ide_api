@@ -32,6 +32,7 @@ import homeassistant.helpers.config_validation as cv
 __VERSION__ = "0.1.1"
 
 from oligo.asyncio import AsyncIber
+from oligo.exception import IberException
 
 DOMAIN = "ide"
 
@@ -140,7 +141,11 @@ class IDESensor(SensorEntity):
     async def async_update(self):
         """Fetch new state data for the sensor."""
         connection = AsyncIber()
-        await connection.login(self.username, self.password)
-        self._state = await connection.current_kilowatt_hour_read()
-        _LOGGER.debug("Meter Data {}".format(self._state))
-        await connection.close()
+        try:
+            await connection.login(self.username, self.password)
+            self._state = await connection.current_kilowatt_hour_read()
+            _LOGGER.debug("Meter Data {}".format(self._state))
+        except IberException as exception:
+            raise exception
+        finally:
+            await connection.close()
