@@ -23,18 +23,20 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.typing import (
     ConfigType,
     DiscoveryInfoType,
 )
 import homeassistant.helpers.config_validation as cv
 
-__VERSION__ = "0.1.1"
+__VERSION__ = "0.2.1"
 
 from oligo.asyncio import AsyncIber
 from oligo.exception import IberException
 
 DOMAIN = "ide"
+DATA_UPDATED = "i-DE Sensor Update"
 
 # Validation of the user's configuration
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
@@ -89,7 +91,7 @@ async def async_setup_platform(
     )
 
 
-class IDESensor(SensorEntity):
+class IDESensor(RestoreEntity, SensorEntity):
     """Representation of a Sensor."""
 
     _attr_state_class = SensorStateClass.TOTAL_INCREASING
@@ -110,6 +112,26 @@ class IDESensor(SensorEntity):
         self.username = config[CONF_USERNAME]
         self.password = config[CONF_PASSWORD]
 
+    async def async_added_to_hass(self) -> None:
+        """Handle entity which will be added."""
+        await super().async_added_to_hass()
+        state = await self.async_get_last_state()
+        if not state:
+            return
+        self._state = state.state
+        _LOGGER.warning(
+            "i-DE Meter could not be updated. Last data restored {}".format(self._state)
+        )
+
+        async_dispatcher_connect(
+            self.hass, DATA_UPDATED, self._schedule_immediate_update
+        )
+
+    @callback
+    def _schedule_immediate_update(self):
+        """Schedule Update when possible"""
+        self.async_schedule_update_ha_state(True)
+        
     @property
     def name(self):
         """Return the name of the sensor."""
