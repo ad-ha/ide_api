@@ -32,7 +32,7 @@ from homeassistant.helpers.typing import (
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 import homeassistant.helpers.config_validation as cv
 
-__VERSION__ = "0.2.1"
+__VERSION__ = "0.2.0"
 
 from oligo.asyncio import AsyncIber
 from oligo.exception import IberException
