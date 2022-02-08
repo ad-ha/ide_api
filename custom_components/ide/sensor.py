@@ -29,6 +29,7 @@ from homeassistant.helpers.typing import (
     ConfigType,
     DiscoveryInfoType,
 )
+from homeassistant.helpers.dispatcher import async_dispatcher_connect
 import homeassistant.helpers.config_validation as cv
 
 __VERSION__ = "0.2.1"
@@ -121,7 +122,9 @@ class IDESensor(RestoreEntity, SensorEntity):
             return
         self._state = state.state
         _LOGGER.warning(
-            "i-DE Meter could not be updated. Last data restored {}".format(self._state)
+            "i-DE Meter could not be updated. Last reading available was restored: {}".format(
+                self._state
+            )
         )
 
         async_dispatcher_connect(
@@ -132,7 +135,7 @@ class IDESensor(RestoreEntity, SensorEntity):
     def _schedule_immediate_update(self):
         """Schedule Update when possible"""
         self.async_schedule_update_ha_state(True)
-        
+
     @property
     def name(self):
         """Return the name of the sensor."""
