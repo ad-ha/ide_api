@@ -128,8 +128,8 @@ class IDESensor(RestoreEntity, SensorEntity):
         )
 
     @callback
-        """Schedule Update when possible"""
     def _schedule_immediate_update(self):
+        """Schedule Update when possible"""
         self.async_schedule_update_ha_state(True)
         
     @property
