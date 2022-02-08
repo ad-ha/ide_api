@@ -21,6 +21,7 @@ from homeassistant.const import (
     ENERGY_KILO_WATT_HOUR,
     DEVICE_CLASS_ENERGY,
 )
+from homeassistant.core import callback
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.restore_state import RestoreEntity
