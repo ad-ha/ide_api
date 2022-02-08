@@ -5,7 +5,7 @@ from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import CONF_USERNAME, CONF_PASSWORD
 from homeassistant.helpers.typing import HomeAssistantType
 
-__VERSION__ = "0.2.1"
+__VERSION__ = "0.2.0"
 
 _LOGGER = logging.getLogger(__name__)
 
