@@ -45,7 +45,8 @@ Make sure to complement all information to have an "Advanced User" profile.
   ![Custom repository](static/images/add_hacs_custom_repo.png)
   
   - On the "Repository" field put the URL copied before
-  - On the "Catgory" select "Integration"
+  - On the "Category" select "Integration"
+  - Click the "Download" button and download latest version. 
 - Restart HA
 
 ## How to configure
