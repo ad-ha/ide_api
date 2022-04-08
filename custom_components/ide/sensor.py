@@ -45,6 +45,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Optional(CONF_USERNAME): cv.string,
         vol.Optional(CONF_PASSWORD): cv.string,
+        vol.Optional(CONF_ID): cv.string,
     }
 )
 
@@ -113,6 +114,7 @@ class IDESensor(RestoreEntity, SensorEntity):
         self._attributes = {}
         self.username = config[CONF_USERNAME]
         self.password = config[CONF_PASSWORD]
+        self.contract = config[CONF_ID]
 
     async def async_added_to_hass(self) -> None:
         """Handle entity which will be added."""
@@ -169,6 +171,8 @@ class IDESensor(RestoreEntity, SensorEntity):
         connection = AsyncIber()
         try:
             await connection.login(self.username, self.password)
+            if self.contract != "":
+               await connection.contractselect(self.contract)
             self._state = await connection.current_kilowatt_hour_read()
             _LOGGER.debug("Meter Data {}".format(self._state))
         except IberException as exception:
