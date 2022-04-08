@@ -58,6 +58,7 @@ sensor:
   - platform: ide
     username: <username>
     password: <password>
+    id: <contract id>
 ```
 
 Use the _\<username\>_ and _\<password\>_ you use on the i-DE webpage. (It is recommended to use the [HA secrets](https://www.home-assistant.io/docs/configuration/secrets/) files for security pourposes)
